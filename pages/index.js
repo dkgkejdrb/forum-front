@@ -16,6 +16,7 @@ import thumbEtc from "/public/thumbEtc1.jpg";
 import uuid from 'react-uuid';
 import dynamic from 'next/dynamic';
 import { debounce } from 'lodash';
+import Link from 'next/link';
 
 export async function getServerSideProps() {
   let client = await connectDB;
@@ -394,7 +395,8 @@ export default function Home(result) {
                     >
                       {worksList.map((work) => {
                         return (
-                          <div key={uuid()} className="item">
+                          <div key={work._id} className="item">
+                            <Link href={"/works/" + work._id}>
                             <Card
                               hoverable
                               style={{
@@ -402,6 +404,7 @@ export default function Home(result) {
                               }}
                               cover={<img alt="example" src={work.thumbnail} />}
                             >
+                              {console.log(work)}
                               <Meta style={{ height: 30 }} title={work.title}></Meta>
                               <div style={{ marginTop: 5, marginBottom: 10, height: 30, display: "flex" }}>
                                 <CardAvatar />
@@ -430,6 +433,7 @@ export default function Home(result) {
                                 </div>
                               </div>
                             </Card>
+                            </Link>
                           </div>
                         );
                       })}
